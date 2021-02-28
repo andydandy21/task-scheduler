@@ -1,0 +1,146 @@
+/** Monthly Calendar CSS */
+
+.calendar {
+    border: 3px solid black;
+    border-collapse: separate;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 1500px;  
+}
+
+.calendar div {
+    height: 75px;
+    text-overflow: ellipsis;
+    line-height: 10px;
+    white-space: nowrap;
+}
+
+.calendar td {
+    height: 125px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    overflow: auto;
+    vertical-align: text-top;
+}
+.calendar td:last-child {
+    border-right: none;
+}
+.calendar tr:last-child td {
+    border-bottom: none;
+}
+
+.calendar th {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.calendar th:last-child{
+    border-right: none;
+}
+.calendar tr:first-child th:first-child {
+    border-top: none;
+}
+
+.cal-overflow {
+    background-color: rgba(128, 128, 128, 0.144);
+}
+
+/** Day Schedule CSS */
+.schedule-box-border {
+    border: 3px solid black;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    width: 800px;
+}
+.schedule-box {
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 25px, 0px, 25px, 0px;
+    table-layout: fixed;
+    width: 800px;
+    height: 800px;
+}
+.day-schedule {
+
+    width: 800px;
+}
+
+.day-schedule td {
+    border: 1px solid black;
+    border-bottom: none;
+    border-collapse: separate; 
+    height: 100px;  
+}
+.day-schedule td:first-child {
+    border-left: none;
+    width: 28%;
+    text-align: center;
+    background-color: rgba(128, 128, 128, 0.144);
+}
+.day-schedule td:last-child {
+    border-right: none;
+
+}
+
+.date-list-master-box {
+    border: 3px solid black;
+    border-radius: 25px;
+    margin:auto;
+    overflow: hidden;
+    white-space: nowrap;
+    max-height: 600px;
+    max-width: 2000px;
+}
+.date-list-holder {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 600px;
+    max-width: 2000px;
+
+}
+
+.date-list-box {
+    display: fixed;
+    border: 1px solid black;
+    border-bottom: none;
+    border-right: none;
+    overflow:auto;
+    padding: 5px;
+    min-width: 400px;
+    min-height: 500px;
+    
+}
+
+.date-list-holder div:first-child {
+    border-left: none;
+}
+
+.task-form {
+    margin: auto;
+    padding: 5px;
+    table-layout: fixed;
+}
+.task-form th{
+
+    min-width: 100px;
+    padding-top: 10px;
+    text-align: right;
+    vertical-align: top;
+}
+.task-form td{
+
+    width: 500px;
+    height: 50px;
+    padding-top: 10px;
+    padding-left:50px;
+    text-align: left;
+    vertical-align: top;
+}

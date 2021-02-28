@@ -1,0 +1,29 @@
+{% extends 'task_calendar/base.html' %}
+{% block content %}
+<form method="POST" class="text-center">
+    {% csrf_token %}
+    <div class=".container mx-auto" style="width: 400px;">
+        <legend>New Task</legend>
+        <table class="task-form">
+            <tr>
+                <th>{{ form.title.label }}:</th>
+                <td>{{ form.title }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.description.label }}:</th>
+                <td>{{ form.description }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.start_time.label }}:</th>
+                <td>{{ form.start_time }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.end_time.label }}:</th>
+                <td>{{ form.end_time }}</td>
+            </tr>
+        </table>
+        <button type="submit" name="save" value="save">Save</button>
+    </div>
+    
+</form>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends "task_calendar/base.html" %}
+{% block content %}
+<h1 class="text-center pt-4 pb-2">Monthly View</h1>
+
+<div class=".container d-flex mx-auto pb-2" style="width: 1450px;">
+    <a class="btn btn-primary me-auto" href="{% url 'month-view' %}?{{ prev_month }}">prev month</a>
+    <a class="btn btn-primary ms-auto" href="{% url 'month-view' %}?{{ next_month }}">next month</a>
+</div>
+
+<div class=".container d-flex">
+    <table class="calendar" cellspacing="0">
+        <tr><th colspan="7" class="text-center py-3"><h3>{{ current_date|date:"F Y" }}</h3></th></tr>
+        <tr>
+            <th class="p-1"><h5>Sunday</h5></th>
+            <th class="p-1"><h5>Monday</h5></th>
+            <th class="p-1"><h5>Tuesday</h5></th>
+            <th class="p-1"><h5>Wednesday</h5></th>
+            <th class="p-1"><h5>Thursday</h5></th>
+            <th class="p-1"><h5>Friday</h5></th>
+            <th class="p-1"><h5>Saturday</h5></th>
+        </tr>
+    
+        <tr>
+        {% for date in date_list %}
+            
+            <!--* if the month of the date in forloop doesn't equal the month of --> 
+            <!--* the current date it will apply the "cal-overflow" class, else, -->
+            <!--* it will follow the same format without the "cal-overflow" class-->
+            {% if date|date:"F" != current_date|date:"F" %} 
+            <td class="cal-overflow">
+                <span>{{ date|date:"d" }}</span> 
+                <div>
+                {% for task in task_list %}
+                    <!--* if the date in the task loop is equal to the date in the -->
+                    <!--* date loop, it will print the task name -->
+                    {% if task.start_time|date:"m-d-Y" == date|date:"m-d-Y" %}
+                        <ul><a href="{% url 'task-detail' task.id %} ">{{ task }}</a></ul>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </td>
+            {% else %}
+            <td>
+                <span>{{ date|date:"d" }}</span>
+                <div>
+                {% for task in task_list %}
+                    {% if task.start_time|date:"m-d-Y" == date|date:"m-d-Y" %}
+                        <ul><a href="{% url 'task-detail' task.id %} ">{{ task }}</a></ul>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </td>
+            {% endif %}
+            
+            <!--* creates a new row at the end of the week, except if it's the -->
+            <!--* last date in the forloop-->
+            {% if forloop.counter|divisibleby:7 and not forloop.last %}
+            </tr>
+            <tr>
+            {% endif %}
+
+        {% endfor %}
+        </tr>
+        
+    </table>
+</div>
+
+{% endblock content %}

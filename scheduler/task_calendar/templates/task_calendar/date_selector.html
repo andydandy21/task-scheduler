@@ -1,0 +1,31 @@
+{% extends 'task_calendar/base.html' %}
+{% block content %}
+
+    {% with date_list|first as from_date %}
+    {% with date_list|last as to_date %}
+        <h1 class="text-center">Date Selector</h1>
+        <h4 class="text-center">{{ from_date|date:"m-d-Y" }} to: {{ to_date|date:"m-d-Y" }}</h4>
+    {% endwith %}
+    {% endwith %}
+
+    <div class="date-list-master-box">
+        <div class="date-list-holder">
+            {% for date in date_list %}
+                <div class="date-list-box">
+                    <h2>{{ date|date:"l" }}</h2>
+                    <h5>{{ date|date:"m-d-Y" }}</h5>
+                    <hr>
+                    <ul>
+                    {% for task in task_list %}
+                    {% if task.start_time|date:"m-d-Y" == date|date:"m-d-Y" %}
+                        <li>Task: <a href="{% url 'task-detail' task.id %}">{{ task }}</a>
+                            <br>&emsp;at: {{ task.start_time|date:"f a" }}
+                        </li>
+                    {% endif %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

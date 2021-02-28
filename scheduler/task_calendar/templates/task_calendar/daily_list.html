@@ -1,0 +1,104 @@
+{% extends 'task_calendar/base.html' %}
+{% block content %}
+    
+    <h1 class="text-center">Daily List</h1>
+    <h3 class="text-center">{{ myday|date:"l: m-d-Y" }}</h3>
+    <div class=".container d-flex mx-auto py-1" style="width: 750px;">
+        <a class="btn btn-primary me-auto" href="{% url 'daily-list' %}?{{ prev_day }}">prev day</a>
+        <a class="btn btn-primary" href="{% url 'daily-list' %}?{{ next_day }}">next day</a>    
+    </div>
+    <div class="schedule-box-border">
+        <div class="schedule-box">
+            <table class="day-schedule" cellspacing="0">
+
+                <!--* creates a range to use in following forloop-->
+                {% with ''|center:24 as range %}
+                {% for x in range %}
+
+                    <!--* creates a string version of forloop counter-->
+                    {% with forloop.counter0 as y %}
+                    {% with y|stringformat:"s" as z %}
+
+                        <!--* the following if statement is to convert the -->
+                        <!--* time format from 24-hour format to 12-hour format -->
+                        {% if y == 0 %}
+                        
+                            <tr>
+                            <td>Events at: {{y|add:"12"}} A.M.</td>
+                            <td>
+                                {% for task in task_list %}
+
+                                    <!--* sets the task start time to a string of the --> 
+                                    <!--* 24-hour format and compares against our string --> 
+                                    <!--* version of our foorloop counter -->
+                                    {% if task.start_time|date:"G" == z %}
+                                    <ul>
+                                        Event: <a href="{% url 'task-detail' task.id %}">{{ task }}</a> 
+                                        <br>&emsp;at {{task.start_time|date:"g:i a"}}<br>
+                                    </ul>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </td>
+                            </tr>
+
+                        {% elif 12 > y > 0 %}
+
+                            <tr>
+                            <td>Events at: {{y}} A.M.</td>
+                            <td>
+                                {% for task in task_list %}
+                                    {% if task.start_time|date:"G" == z %}
+                                    <ul>
+                                        Event: <a href="{% url 'task-detail' task.id %}">{{ task }}</a> 
+                                        <br>&emsp;at {{task.start_time|date:"g:i a"}}<br>
+                                    </ul>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            </tr>
+                        
+                        {% elif y == 12 %}
+
+                            <tr>
+                            <td>Events at: {{y}} P.M.</td>
+                            <td>
+                                {% for task in task_list %}
+                                    {% if task.start_time|date:"G" == z %}
+                                    <ul>
+                                        Event: <a href="{% url 'task-detail' task.id %}">{{ task }}</a> 
+                                        <br>&emsp;at {{task.start_time|date:"g:i a"}}<br>
+                                    </ul>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            </tr>
+
+                        {% else %}
+
+                            <tr>
+                            <td>Events at: {{y|add:"-12"}} P.M.</td>
+                            <td>
+                                {% for task in task_list %}
+                                    {% if task.start_time|date:"G" == z %}
+                                    <ul>
+                                        Event: <a href="{% url 'task-detail' task.id %}">{{ task }}</a> 
+                                        <br>&emsp;at {{task.start_time|date:"g:i a"}}<br>
+                                    </ul>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            </tr>
+
+                        {% endif %}
+
+                    {% endwith %}
+                    {% endwith %}
+                    
+                {% endfor %}
+                {% endwith %}
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}
